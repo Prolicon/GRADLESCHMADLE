@@ -804,26 +804,26 @@ if (project.hasProperty("additionalSourceSetJars")) {
 }
 
 additionalSourceSetJars.forEach(additionalSourceSet -> {
-    String additionalSourceSetJavaDocTaskName = additionalSourceSet + "Javadoc"
-    String additionalSourceSetPackageJavaDocTaskName = additionalSourceSet + "PackageJavadoc"
+    //String additionalSourceSetJavaDocTaskName = additionalSourceSet + "Javadoc"
+    //String additionalSourceSetPackageJavaDocTaskName = additionalSourceSet + "PackageJavadoc"
     String additionalSourceSetJarTaskName = additionalSourceSet + "Jar"
     String additionalSourceSetSourcesTaskName = additionalSourceSet + "Sources"
     String additionalSourceSetBuildTask = additionalSourceSet + "Build"
 
-    String additionalSourceSetJavadocClassifier = sourceSetClassifiers.getOrDefault(additionalSourceSet, additionalSourceSet.toLowerCase()) + "-javadoc"
+    //String additionalSourceSetJavadocClassifier = sourceSetClassifiers.getOrDefault(additionalSourceSet, additionalSourceSet.toLowerCase()) + "-javadoc"
     String additionalSourceSetSourcesClassifier = sourceSetClassifiers.getOrDefault(additionalSourceSet, additionalSourceSet.toLowerCase()) + "-sources"
 
-    org.gradle.api.tasks.javadoc.Javadoc javaDocTask = project.tasks.create(additionalSourceSetJavaDocTaskName, Javadoc.class);
-    javaDocTask.setClasspath(sourceSets[additionalSourceSet].getCompileClasspath())
-    javaDocTask.group 'documentation'
-    javaDocTask.source = sourceSets[additionalSourceSet].allJava
-    javaDocTask.destinationDir = project.buildDir.toPath().resolve("additional").resolve("javadoc").resolve(additionalSourceSet).toFile()
+    //org.gradle.api.tasks.javadoc.Javadoc javaDocTask = project.tasks.create(additionalSourceSetJavaDocTaskName, Javadoc.class);
+    //javaDocTask.setClasspath(sourceSets[additionalSourceSet].getCompileClasspath())
+    //javaDocTask.group 'documentation'
+    //javaDocTask.source = sourceSets[additionalSourceSet].allJava
+    //javaDocTask.destinationDir = project.buildDir.toPath().resolve("additional").resolve("javadoc").resolve(additionalSourceSet).toFile()
 
     org.gradle.api.tasks.bundling.Jar javadocJarTask = project.tasks.create(additionalSourceSetPackageJavaDocTaskName, org.gradle.api.tasks.bundling.Jar.class)
-    javadocJarTask.dependsOn javaDocTask
-    javadocJarTask.group 'packaging'
-    javadocJarTask.from javaDocTask
-    javadocJarTask.getArchiveClassifier().set(additionalSourceSetJavadocClassifier)
+    //javadocJarTask.dependsOn javaDocTask
+    //javadocJarTask.group 'packaging'
+    //javadocJarTask.from javaDocTask
+    //javadocJarTask.getArchiveClassifier().set(additionalSourceSetJavadocClassifier)
 
     org.gradle.api.tasks.bundling.Jar outputJarTask = project.tasks.create(additionalSourceSetJarTaskName, org.gradle.api.tasks.bundling.Jar.class)
     outputJarTask.group 'build'
@@ -838,8 +838,8 @@ additionalSourceSetJars.forEach(additionalSourceSet -> {
 
     Task sourceSetBuildTask = project.tasks.create(additionalSourceSetBuildTask)
     sourceSetBuildTask.group 'build'
-    sourceSetBuildTask.dependsOn javaDocTask
-    sourceSetBuildTask.dependsOn javadocJarTask
+    //sourceSetBuildTask.dependsOn javaDocTask
+    //sourceSetBuildTask.dependsOn javadocJarTask
     sourceSetBuildTask.dependsOn outputJarTask
     sourceSetBuildTask.dependsOn sourcesJarTask
 
@@ -855,17 +855,17 @@ task sourcesJar(type: Jar) { it ->
     })
 }
 
-javadoc {it ->
-    primaryJarSourceSets.forEach(sourceSetName -> {
-        it.source +=  project.sourceSets[sourceSetName].allJava
-    })
-}
+//javadoc {it ->
+//    primaryJarSourceSets.forEach(sourceSetName -> {
+//        it.source +=  project.sourceSets[sourceSetName].allJava
+//    })
+//}
 
-task packageJavadoc(type: Jar) { task ->
-    task.dependsOn javadoc
-    task.from javadoc
-    task.archiveClassifier.set('javadoc')
-}
+//task packageJavadoc(type: Jar) { task ->
+//    task.dependsOn javadoc
+//    task.from javadoc
+//    task.archiveClassifier.set('javadoc')
+//}
 
 project.tasks.build.dependsOn sourcesJar
 project.tasks.build.dependsOn packageJavadoc
