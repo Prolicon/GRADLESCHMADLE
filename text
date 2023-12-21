@@ -868,7 +868,7 @@ task sourcesJar(type: Jar) { it ->
 //}
 
 project.tasks.build.dependsOn sourcesJar
-project.tasks.build.dependsOn packageJavadoc
+//project.tasks.build.dependsOn packageJavadoc
 
 
 if (projectUsesShadowing) {
@@ -946,16 +946,16 @@ if (project.hasProperty("publishableSourceSets")) {
 
 artifacts { it ->
     publishableSourceSets.forEach(sourceSetName -> {
-        String javaDocTaskName = sourceSetName + "PackageJavadoc"
+        //String javaDocTaskName = sourceSetName + "PackageJavadoc"
         String jarTaskName = sourceSetName + "Jar"
         String sourceTaskName = sourceSetName + "Sources"
         if (sourceSetName == "main") {
-            javaDocTaskName = "packageJavadoc"
+            //javaDocTaskName = "packageJavadoc"
             jarTaskName = "jar"
             sourceTaskName = "sourcesJar"
         }
 
-        it.add("default", project.tasks[javaDocTaskName])
+        //it.add("default", project.tasks[javaDocTaskName])
         it.add("default", project.tasks[jarTaskName])
         it.add("default", project.tasks[sourceTaskName])
 
@@ -973,16 +973,16 @@ publishing {
             artifactId project.modId
 
             publishableSourceSets.forEach(sourceSetName -> {
-                String javaDocTaskName = sourceSetName + "PackageJavadoc"
+                //String javaDocTaskName = sourceSetName + "PackageJavadoc"
                 String jarTaskName = sourceSetName + "Jar"
                 String sourceTaskName = sourceSetName + "Sources"
                 if (sourceSetName == "main") {
-                    javaDocTaskName = "packageJavadoc"
+                    //javaDocTaskName = "packageJavadoc"
                     jarTaskName = "jar"
                     sourceTaskName = "sourcesJar"
                 }
 
-                pub.artifacts.artifact(project.tasks[javaDocTaskName])
+                //pub.artifacts.artifact(project.tasks[javaDocTaskName])
                 if (sourceSetName != "main") {
                     pub.artifacts.artifact(project.tasks[jarTaskName])
                 }
@@ -1112,16 +1112,16 @@ if (opc.isFeatureEnabled("curse") && opc.hasPropertySet("curseId")
             }
 
             publishableSourceSets.forEach(sourceSetName -> {
-                String javaDocTaskName = sourceSetName + "PackageJavadoc"
+                //String javaDocTaskName = sourceSetName + "PackageJavadoc"
                 String jarTaskName = sourceSetName + "Jar"
                 String sourceTaskName = sourceSetName + "Sources"
                 if (sourceSetName == "main") {
-                    javaDocTaskName = "packageJavadoc"
+                    //javaDocTaskName = "packageJavadoc"
                     jarTaskName = "jar"
                     sourceTaskName = "sourcesJar"
                 }
 
-                cp.addArtifact(project.tasks[javaDocTaskName])
+                //cp.addArtifact(project.tasks[javaDocTaskName])
                 if (sourceSetName != "main" || projectUsesShadowing) {
                     cp.addArtifact(project.tasks[jarTaskName])
                 }
